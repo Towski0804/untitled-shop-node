@@ -1,18 +1,24 @@
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
-import multer from "multer";
 import "dotenv/config";
 
+import uploadHandler from "./upload";
+import productHandler from "./product";
+import useDB from "./useDB";
+
+const port = process.env.PORT || 4000;
 const app = express();
+// Connect to MongoDB
+useDB();
+
 app.use(express.json());
 app.use(cors());
-const port = process.env.PORT || 4000;
 
-const dbUrl = process.env.DB_URL || ""; // Set a default value for DB_URL if it is undefined
+app.use("/images", express.static("./upload/images"));
+app.use("/upload", uploadHandler);
+app.use("/product", productHandler);
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-  console.log(dbUrl);
+  console.log(`Server is running on port ${port} at ${new Date()}`);
 });
