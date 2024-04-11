@@ -10,3 +10,5 @@ dist
 
 # ignore all DS_STORE from current dir and all sub dirs
 **/.DS_Store
+
+upload/images/*
