@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("User", UserSchema);
+export const User = mongoose.model("User", UserSchema);
 
 router.post("/", async (req, res) => {
   let check = await User.findOne({ email: req.body.email });
@@ -50,7 +50,15 @@ router.post("/", async (req, res) => {
     },
   };
 
-  const token = jwt.sign(data, "secret-ecom");
+  const secret = process.env.JWT_SECRET || "";
+  if (!secret) {
+    res.status(500).json({
+      success: false,
+      message: "JWT_SECRET is not defined",
+    });
+  }
+
+  const token = jwt.sign(data, secret);
   res.json({
     success: true,
     token,
