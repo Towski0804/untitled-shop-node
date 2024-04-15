@@ -30,8 +30,7 @@ export const User = mongoose.model("User", UserSchema);
 router.post("/", async (req, res) => {
   let check = await User.findOne({ email: req.body.email });
   if (check) {
-    res.status(400).json({
-      success: false,
+    return res.status(400).json({
       error: "User already exists",
     });
   }
@@ -52,14 +51,13 @@ router.post("/", async (req, res) => {
 
   const secret = process.env.JWT_SECRET || "";
   if (!secret) {
-    res.status(500).json({
-      success: false,
-      message: "JWT_SECRET is not defined",
+    return res.status(500).json({
+      error: "JWT_SECRET is not defined",
     });
   }
 
   const token = jwt.sign(data, secret);
-  res.json({
+  return res.status(200).json({
     success: true,
     token,
   });

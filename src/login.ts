@@ -11,9 +11,9 @@ router.post("/", async (req, res) => {
   if (user) {
     const secret = process.env.JWT_SECRET || "";
     if (!secret) {
-      res.status(500).json({
+      return res.status(500).json({
         success: false,
-        message: "JWT_SECRET is not defined",
+        error: "JWT_SECRET is not defined",
       });
     }
     if (user.password === req.body.password) {
@@ -23,21 +23,21 @@ router.post("/", async (req, res) => {
         },
         secret,
       );
-      res.json({
+      return res.status(200).json({
         success: true,
         message: "Login successful",
         token,
       });
     } else {
-      res.status(401).json({
+      return res.status(401).json({
         success: false,
-        message: "Incorrect password",
+        error: "Incorrect password",
       });
     }
   } else {
-    res.status(404).json({
+    return res.status(404).json({
       success: false,
-      message: "User not found",
+      error: "User not found",
     });
   }
 });
