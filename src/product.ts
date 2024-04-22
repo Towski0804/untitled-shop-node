@@ -34,7 +34,7 @@ const ProductSchema = new mongoose.Schema({
   },
 });
 
-const Product = mongoose.model("Product", ProductSchema);
+export const Product = mongoose.model("Product", ProductSchema);
 
 router.post("/", async (req, res) => {
   // let products = await Product.find({});
