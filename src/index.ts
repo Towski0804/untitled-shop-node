@@ -7,6 +7,7 @@ import productHandler from "./product";
 import signupHandler from "./signup";
 import loginHandler from "./login";
 import newcollectionsHandler from "./newcollections";
+import popularHandler from "./popular";
 import useDB from "./useDB";
 
 const port = process.env.PORT || 4000;
@@ -22,6 +23,7 @@ app.use("/product", productHandler);
 app.use("/signup", signupHandler);
 app.use("/login", loginHandler);
 app.use("/newcollections", newcollectionsHandler);
+app.use("/popular", popularHandler);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port} at ${new Date()}`);
