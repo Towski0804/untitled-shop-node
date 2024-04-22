@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
 
   const data = {
     user: {
-      id: user.id,
+      id: user._id,
     },
   };
 
