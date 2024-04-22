@@ -4,10 +4,6 @@ import mongoose from "mongoose";
 const router = express.Router();
 
 const ProductSchema = new mongoose.Schema({
-  // id: {
-  //   type: Number,
-  //   required: true,
-  // },
   name: {
     type: String,
     required: true,
