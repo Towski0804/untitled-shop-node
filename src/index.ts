@@ -24,3 +24,5 @@ app.use("/login", loginHandler);
 app.listen(port, () => {
   console.log(`Server is running on port ${port} at ${new Date()}`);
 });
+
+export default app;
