@@ -8,6 +8,7 @@ import signupHandler from "./signup";
 import loginHandler from "./login";
 import newcollectionsHandler from "./newcollections";
 import popularHandler from "./popular";
+import cartitemsHandler from "./cartitems";
 import useDB from "./useDB";
 
 const port = process.env.PORT || 4000;
@@ -24,6 +25,7 @@ app.use("/signup", signupHandler);
 app.use("/login", loginHandler);
 app.use("/newcollections", newcollectionsHandler);
 app.use("/popular", popularHandler);
+app.use("/cartitems", cartitemsHandler);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port} at ${new Date()}`);

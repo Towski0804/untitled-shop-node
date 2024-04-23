@@ -34,12 +34,11 @@ router.post("/", async (req, res) => {
       error: "User already exists",
     });
   }
-  let cart = {};
   const user = new User({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
-    cartData: cart,
+    cartData: {},
   });
   await user.save();
 
@@ -49,7 +48,7 @@ router.post("/", async (req, res) => {
     },
   };
 
-  const secret = process.env.JWT_SECRET || "";
+  const secret = process.env.JWT_SECRET;
   if (!secret) {
     return res.status(500).json({
       error: "JWT_SECRET is not defined",

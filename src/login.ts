@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
     email: req.body.email,
   });
   if (user) {
-    const secret = process.env.JWT_SECRET || "";
+    const secret = process.env.JWT_SECRET;
     if (!secret) {
       return res.status(500).json({
         success: false,
@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
     if (user.password === req.body.password) {
       const token = jwt.sign(
         {
-          id: user.id,
+          id: user._id,
         },
         secret,
       );
