@@ -34,7 +34,6 @@ const secret = process.env.JWT_SECRET;
 
 export async function getUserByToken(token: string) {
   if (!token || !secret) return null;
-
   try {
     const { id } = jwt.verify(token, secret) as { id: string };
     return await User.findById(id);
@@ -44,6 +43,13 @@ export async function getUserByToken(token: string) {
 }
 
 router.post("/", async (req, res) => {
+  const user = await getUserByToken(req.headers["auth-token"] as string);
+  if (!user) return res.status(404).json({ error: "User not found" });
+  console.log(user.cartData);
+  return res.status(200).json({ cartData: user.cartData });
+});
+
+router.patch("/", async (req, res) => {
   const { itemID } = req.body;
   const user = await getUserByToken(req.headers["auth-token"] as string);
   if (!user) return res.status(404).json({ error: "User not found" });
