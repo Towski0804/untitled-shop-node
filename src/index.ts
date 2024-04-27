@@ -11,7 +11,7 @@ import popularHandler from "./popular";
 import cartitemsHandler from "./cartitems";
 import useDB from "./useDB";
 
-const port = process.env.PORT || 4000;
+const port = Number(process.env.PORT) || 4000;
 const app = express();
 // Connect to MongoDB
 useDB();
@@ -27,7 +27,7 @@ app.use("/newcollections", newcollectionsHandler);
 app.use("/popular", popularHandler);
 app.use("/cartitems", cartitemsHandler);
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on port ${port} at ${new Date()}`);
 });
 
