@@ -18,14 +18,14 @@ useDB();
 app.use(express.json());
 app.use(cors());
 
-app.use("/images", express.static("./upload/images"));
-app.use("/upload", uploadHandler);
-app.use("/product", productHandler);
-app.use("/signup", signupHandler);
-app.use("/login", loginHandler);
-app.use("/newcollections", newcollectionsHandler);
-app.use("/popular", popularHandler);
-app.use("/cartitems", cartitemsHandler);
+app.use("/api/v1/images", express.static("./upload/images"));
+app.use("/api/v1/upload", uploadHandler);
+app.use("/api/v1/product", productHandler);
+app.use("/api/v1/signup", signupHandler);
+app.use("/api/v1/login", loginHandler);
+app.use("/api/v1/newcollections", newcollectionsHandler);
+app.use("/api/v1/popular", popularHandler);
+app.use("/api/v1/cartitems", cartitemsHandler);
 
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on port ${port} at ${new Date()}`);
