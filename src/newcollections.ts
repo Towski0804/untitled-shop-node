@@ -9,4 +9,12 @@ router.get("/", async (req, res) => {
   res.json(newcollection);
 });
 
+// get related products api endpoint
+router.get("/:category", async (req, res) => {
+  const collections = await Product.find({
+    category: req.params.category,
+  }).limit(4);
+  res.json(collections);
+});
+
 export default router;
