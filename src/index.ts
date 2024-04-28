@@ -18,7 +18,7 @@ useDB();
 app.use(express.json());
 app.use(cors());
 
-app.use("/api/v1/images", express.static("./upload/images"));
+app.use("/images", express.static("./upload/images"));
 app.use("/api/v1/upload", uploadHandler);
 app.use("/api/v1/product", productHandler);
 app.use("/api/v1/signup", signupHandler);

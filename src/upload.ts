@@ -18,7 +18,7 @@ const upload = multer({ storage });
 router.post("/", upload.single("product"), (req, res) => {
   res.json({
     success: 1,
-    image_url: `http://localhost:${process.env.PORT}/api/v1/images/${req.file?.filename}`,
+    image_url: `http://localhost:${process.env.PORT}/images/${req.file?.filename}`,
   });
 });
 
