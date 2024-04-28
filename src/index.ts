@@ -27,7 +27,7 @@ app.use("/api/v1/newcollections", newcollectionsHandler);
 app.use("/api/v1/popular", popularHandler);
 app.use("/api/v1/cartitems", cartitemsHandler);
 
-app.listen(port, "0.0.0.0", () => {
+app.listen(port, () => {
   console.log(`Server is running on port ${port} at ${new Date()}`);
 });
 
