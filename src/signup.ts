@@ -43,9 +43,7 @@ router.post("/", async (req, res) => {
   await user.save();
 
   const data = {
-    user: {
-      id: user._id,
-    },
+    id: user._id,
   };
 
   const secret = process.env.JWT_SECRET;
