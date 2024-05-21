@@ -24,6 +24,9 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  description: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now,
@@ -43,6 +46,7 @@ router.post("/", async (req, res) => {
     category: req.body.category,
     new_price: req.body.new_price,
     old_price: req.body.old_price,
+    description: req.body.description,
   });
   console.log(product);
   await product.save();
