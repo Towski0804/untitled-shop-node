@@ -80,29 +80,6 @@ router.get("/:id", async (req, res) => {
   });
 });
 
-router.get("/:id", async (req, res) => {
-  const id = req.params.id;
-  const product = await Product.findOne({
-    _id: id,
-  });
-  if (!product) {
-    res.json({
-      success: false,
-      message: "Product not found",
-    });
-    return;
-  }
-  res.json({
-    _id: product?._id,
-    name: product?.name,
-    image: product?.image,
-    category: product?.category,
-    new_price: product?.new_price,
-    old_price: product?.old_price,
-    description: product?.description,
-  });
-});
-
 router.delete("/:id", async (req, res) => {
   const id = req.params.id;
   const product = await Product.findOneAndDelete({
