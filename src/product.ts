@@ -109,22 +109,27 @@ router.get("/", async (req, res) => {
 // get products with category
 router.get("/category/:category", async (req, res) => {
   // the initial value for page is 1
-  const skip = 10 * (parseInt(req.query.page as string) - 1);
+  const page = parseInt(req.query.page as string) || 1;
+  const skip = 10 * (page - 1);
   const products = await Product.find({
     category: req.params.category,
   })
     .limit(10)
     .skip(skip);
   console.log("All products fetched");
+  const total = await Product.countDocuments({ category: req.params.category });
   if (!products) {
     res.json({
       success: false,
       message: "No product not found",
-      pageNum: req.query.page,
     });
     return;
   }
-  res.status(200).json(products);
+  res.status(200).json({
+    products,
+    total,
+    page,
+  });
 });
 
 export default router;
