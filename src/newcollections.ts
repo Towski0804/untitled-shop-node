@@ -4,8 +4,7 @@ import { Product } from "./product";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const collections = await Product.find({});
-  const newcollection = collections.slice(-8);
+  const newcollection = await Product.find({}).limit(8).sort({ date: -1 });
   res.json(newcollection);
 });
 

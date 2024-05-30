@@ -101,7 +101,7 @@ router.delete("/:id", async (req, res) => {
 // get all products without category
 // get all products without category
 router.get("/", async (req, res) => {
-  const products = await Product.find({});
+  const products = await Product.find({}).sort({ date: -1 });
   console.log("All products fetched");
   res.json(products);
 });
