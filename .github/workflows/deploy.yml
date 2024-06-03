@@ -1,0 +1,36 @@
+name: Deploy Ushop backend
+
+on:
+  push:
+    branches:
+      - main # Trigger the workflow on push to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Uses Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build the project
+        run: bun run build
+
+      - name: Copy files via scp
+        env:
+          HOST: ${{ secrets.REMOTE_HOST }}
+          USER: ${{ secrets.REMOTE_USER }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key
+          chmod 600 private_key
+          ssh -i private_key -o StrictHostKeyChecking=no $USER@$HOST "pm2 delete 0 && sudo rm -rf /root/www/e-commerce/backend/out"
+          scp -i private_key -o StrictHostKeyChecking=no -r ./out $USER@$HOST:/root/www/e-commerce/backend/
+          ssh -i private_key -o StrictHostKeyChecking=no $USER@$HOST "pm2 start --interpreter ~/.bun/bin/bun out/index.js && pm2 save"
+          rm -rf private_key
