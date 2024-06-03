@@ -30,7 +30,7 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
-          ssh -i private_key -o StrictHostKeyChecking=no $USER@$HOST 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && export PATH=$PATH:$HOME/.bun/bin && pm2 delete 0 && sudo rm -f /root/www/e-commerce/backend/out/index.js'
-          scp -i private_key -o StrictHostKeyChecking=no out/index.js $USER@$HOST:/root/www/e-commerce/backend/out/
-          ssh -i private_key -o StrictHostKeyChecking=no $USER@$HOST 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && export PATH=$PATH:$HOME/.bun/bin && pm2 start --interpreter ~/.bun/bin/bun /root/www/e-commerce/backend/out/index.js && pm2 save'
+          ssh -i private_key -o StrictHostKeyChecking=no $USER@$HOST 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && export PATH=$PATH:$HOME/.bun/bin && pm2 delete 0 && sudo rm -rf /root/www/e-commerce/backend/out'
+          scp -i private_key -o StrictHostKeyChecking=no -r out $USER@$HOST:/root/www/e-commerce/backend/out/
+          ssh -i private_key -o StrictHostKeyChecking=no $USER@$HOST 'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && export PATH=$PATH:$HOME/.bun/bin && cd /root/www/e-commerce/backend pm2 start --interpreter ~/.bun/bin/bun out/index.js && pm2 save'
           rm -rf private_key
