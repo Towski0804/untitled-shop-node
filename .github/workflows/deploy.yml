@@ -27,7 +27,7 @@ jobs:
           HOST: ${{ secrets.REMOTE_HOST }}
           USER: ${{ secrets.REMOTE_USER }}
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-   run: |
+        run: |
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
           ssh -i private_key -o StrictHostKeyChecking=no $USER@$HOST "
